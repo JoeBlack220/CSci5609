@@ -28,11 +28,11 @@ public class Species {
     // ELLIPSE x, y, width, height
     shape = createShape(ELLIPSE, xCor,yCor ,diameter ,diameter);
     // If type is Basal, set the color to royal blue.
-    if (type.equals("Basal")) shape.setFill(color(30,144,255));
+    if (type.equals("Basal")) shape.setFill(color(102,194,165));
     // If type is Freeliving, set the color to Spring Green1.
-    else if (type.equals("Freeliving")) shape.setFill(color(0,255,127));
+    else if (type.equals("Freeliving")) shape.setFill(color(252,141,98));
     // If type is Basal, set the color to Orange Red.
-    else if (type.equals("Parasite")) shape.setFill(color(255,69,0));
+    else if (type.equals("Parasite")) shape.setFill(color(141,160,203));
     shape.setStroke(false);
   }
   

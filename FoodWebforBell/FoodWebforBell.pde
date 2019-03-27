@@ -3,10 +3,10 @@ import java.lang.*;
 
 // --------------------- Sketch-wide variables ----------------------
 Table table;
-String[] allSpeciesName = new String[128];
+String[] allSpeciesName = new String[13];
 int speciesNum;
 ArrayList<Species> allSpecies = new ArrayList<Species>();
-float bigCircleDia = 600;
+float bigCircleDia = 400;
 float interval;
 PShape bigCircle;
 // ------------------------ Initialisation --------------------------
@@ -24,7 +24,7 @@ void setup(){
   // ELLIPSE x, y, width, height
   bigCircle = createShape(ELLIPSE,640,360,bigCircleDia,bigCircleDia);  
   // Load the data table.
-  table = loadTable("carpinteria.csv");
+  table = loadTable("bellchain.csv");
   // The first row of the table saves all the name of species in the food web.
   // Extract them all and save them in a String array.
   TableRow row0 = table.getRow(0);
@@ -44,6 +44,21 @@ void draw()
 {
  background(255); 
  shape(bigCircle,0,0);
+ 
+ noStroke();
+ textSize(16);
+ fill(0);
+ text("Characters in the Food web:", 100, 100);
+ 
+ fill(102,194,165); circle(110, 120, 15);
+ text("Plants", 130, 125);
+ 
+ fill(252,141,98); circle(110,140,15);
+ text("Herbivores", 130, 145);
+ 
+ fill(141,160,203); circle(110,160,15);
+ text("Predators", 130, 165);
+ 
  for(int i = 0; i < speciesNum; i++){
    shape(allSpecies.get(i).getShape(),0,0);
  }
@@ -52,42 +67,18 @@ void draw()
      float ijRelation = allSpecies.get(i).getRelations().get(j);
      // draw links if two speceis have relations
      if(ijRelation!=0) {
-       if(ijRelation==1||ijRelation==1.2||ijRelation==1.25) {
-         stroke(220,20,60);
+       if(ijRelation==1) {
+         stroke(51,160,44);
          line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
        }
-       if(ijRelation==2||ijRelation==2.5) {
-         stroke(139,0,139);
+       if(ijRelation==2) {
+         stroke(251,154,153);
          line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
        }
        if(ijRelation==3) {
-         stroke(72,61,139);
+         stroke(31,120,180);
          line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
        }
-       if(ijRelation==4||ijRelation==4.1||ijRelation==4.1||ijRelation==4.2) {
-         stroke(128,0,0);
-         line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
-       }  
-       if(ijRelation==5){
-         stroke(0,128,0);
-         line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
-       } 
-       if(ijRelation==6) {
-         stroke(255,215,0);
-         line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
-       } 
-       if(ijRelation==7) {
-         stroke(0,255,127);
-         line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
-       } 
-       if(ijRelation==8) {
-         stroke(47,79,79);
-         line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
-       } 
-       if(ijRelation==9) {
-         stroke(100,149,237);
-         line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
-       } 
      }
    }
  }
