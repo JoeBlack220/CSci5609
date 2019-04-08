@@ -107,8 +107,7 @@ void draw(){
       else if (type.equals("Parasite")) fill(color(141,160,203));
       ellipse(temp[0],temp[1], 30, 30);
       fill(50);
-      textAlign(LEFT);
-      text(allSpecies.get((int)temp[4]).getName(), temp[0] + 20, temp[1] + 20);
+      text(allSpecies.get((int)temp[4]).getName(), temp[0] , temp[1] + 30);
     }
   }
   for(List<float []> curSpecies: predatorCor){
@@ -122,8 +121,7 @@ void draw(){
       else if (type.equals("Parasite")) fill(color(141,160,203));
       ellipse(temp[0],temp[1], 30, 30);
       fill(50);
-      textAlign(RIGHT);
-      text(allSpecies.get((int)temp[4]).getName(), temp[0] - 20, temp[1] + 20);
+      text(allSpecies.get((int)temp[4]).getName(), temp[0], temp[1] + 30);
     }
   }
 }

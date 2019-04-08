@@ -8,19 +8,24 @@ public class Species {
   private float diameter;
   private float xCor;
   private float yCor;
+  private float xNum;
+  private float yNum;
   private int index;
   private final int speciesNum = 127;
   private final float interval = (float)360/128;
 
-  public Species(TableRow speciesRow, float bigCircleDia, int index){
+  public Species(TableRow speciesRow, float bigCircleDia, int idx){
+  index = idx;
   for(int i = 0; i < speciesRow.getColumnCount(); i++){
       if(i==0) type = speciesRow.getString(i);
       else if(i==1) name = speciesRow.getString(i);
       else relations.add(speciesRow.getFloat(i));
     }
     diameter = (float)(bigCircleDia * Math.PI / speciesNum);
-    xCor = (float)(640+Math.cos(Math.toRadians(index*interval))*bigCircleDia/2);
-    yCor = (float)(360+Math.sin(Math.toRadians(index*interval))*bigCircleDia/2);
+    xCor = (float)(725+Math.cos(Math.toRadians(index*interval))*bigCircleDia/2);
+    yCor = (float)(475+Math.sin(Math.toRadians(index*interval))*bigCircleDia/2);
+    xNum = (float)(725+Math.cos(Math.toRadians(index*interval))*(bigCircleDia/2+10));
+    yNum = (float)(475+Math.sin(Math.toRadians(index*interval))*(bigCircleDia/2+10));
     drawShape();
   }
   
@@ -47,6 +52,9 @@ public class Species {
   public ArrayList<Float> getRelations(){
     return relations;
   }
+  public float getDia(){
+    return diameter;
+  }
   
   public PShape getShape(){
     return shape;
@@ -57,6 +65,15 @@ public class Species {
   }
   public float getYCor(){
     return yCor;
+  }
+  public float getXNum(){
+    return xNum;
+  }
+  public float getYNum(){
+    return yNum;
+  }
+  public float getIdx(){
+    return index;
   }
 }
   
