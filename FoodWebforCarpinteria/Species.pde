@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class Species {
   private String name;
@@ -11,22 +12,42 @@ public class Species {
   private float xNum;
   private float yNum;
   private int index;
-  private final int speciesNum = 127;
+  private int speciesNum;
+  private String description = "";
+  private PImage img;
+  private boolean activated = true;
   private final float interval = (float)360/128;
 
-  public Species(TableRow speciesRow, float bigCircleDia, int idx){
-  index = idx;
-  for(int i = 0; i < speciesRow.getColumnCount(); i++){
-      if(i==0) type = speciesRow.getString(i);
-      else if(i==1) name = speciesRow.getString(i);
-      else relations.add(speciesRow.getFloat(i));
-    }
-    diameter = (float)(bigCircleDia * Math.PI / speciesNum);
-    xCor = (float)(725+Math.cos(Math.toRadians(index*interval))*bigCircleDia/2);
-    yCor = (float)(475+Math.sin(Math.toRadians(index*interval))*bigCircleDia/2);
-    xNum = (float)(725+Math.cos(Math.toRadians(index*interval))*(bigCircleDia/2+10));
-    yNum = (float)(475+Math.sin(Math.toRadians(index*interval))*(bigCircleDia/2+10));
-    drawShape();
+  public Species(TableRow speciesRow, float bigCircleDia, int idx, int total){
+    index = idx;
+    speciesNum = total;
+    for(int i = 0; i < speciesRow.getColumnCount(); i++){
+        if(i==0) type = speciesRow.getString(i);
+        else if(i==1) name = speciesRow.getString(i);
+        else relations.add(speciesRow.getFloat(i));
+      }
+      diameter = (float)(bigCircleDia * Math.PI / speciesNum);
+      xCor = (float)(725+Math.cos(Math.toRadians(index*interval))*bigCircleDia/2);
+      yCor = (float)(475+Math.sin(Math.toRadians(index*interval))*bigCircleDia/2);
+      xNum = (float)(725+Math.cos(Math.toRadians(index*interval))*(bigCircleDia/2+10));
+      yNum = (float)(475+Math.sin(Math.toRadians(index*interval))*(bigCircleDia/2+10));
+      drawShape();
+      img = loadImage("./pics/" + name + ".jpg");
+      //File f = new File("1");
+      //System.out.println(f.exists());
+      //BufferedReader br ;
+      //try {
+      //  String temp;
+      //  br = new BufferedReader(new FileReader("./desc/" + name));
+      //  while((temp = br.readLine())!=null) {
+      //    description += temp;
+      //  } 
+      //}catch(Exception e){
+      //    e.printStackTrace();
+      //    description = "No avaliable description now.";
+      //}
+      String[] lines = loadStrings("./desc/" + name);
+      description = Arrays.toString(lines);
   }
   
   private void drawShape(){
@@ -41,8 +62,20 @@ public class Species {
     shape.setStroke(false);
   }
   
+  public PImage getImg(){
+    return img;
+  }
+  
   public String getName(){
     return name;
+  }
+  
+  public boolean getStatus(){
+    return activated; 
+  }
+  
+  public void setStatus(boolean f){
+    activated = f;
   }
   
   public String getType(){
@@ -58,6 +91,10 @@ public class Species {
   
   public PShape getShape(){
     return shape;
+  }
+  
+  public String getDesc(){
+    return description;
   }
   
   public float getXCor(){
