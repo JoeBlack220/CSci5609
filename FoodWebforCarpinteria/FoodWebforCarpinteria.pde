@@ -375,6 +375,7 @@ public void setFoodChains(int index){
     }
   }
 }
+
 public void drawFoodChains(int index){
   Species curS = allSpecies.get(index);
   for(List<float []> curSpecies: preyCor){

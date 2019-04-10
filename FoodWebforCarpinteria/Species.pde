@@ -32,6 +32,7 @@ public class Species {
       xNum = (float)(725+Math.cos(Math.toRadians(index*interval))*(bigCircleDia/2+10));
       yNum = (float)(475+Math.sin(Math.toRadians(index*interval))*(bigCircleDia/2+10));
       drawShape();
+      System.out.println(System.getProperty("user.dir"));
       img = loadImage("./pics/" + name + ".jpg");
       //File f = new File("1");
       //System.out.println(f.exists());
@@ -46,7 +47,7 @@ public class Species {
       //    e.printStackTrace();
       //    description = "No avaliable description now.";
       //}
-      String[] lines = loadStrings("./desc/" + name);
+      String[] lines = loadStrings("./desc/" + name + ".txt");
       description = Arrays.toString(lines);
   }
   
