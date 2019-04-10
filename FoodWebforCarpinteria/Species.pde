@@ -16,6 +16,7 @@ public class Species {
   private String description = "";
   private PImage img;
   private boolean activated = true;
+  private color c;
   private final float interval = (float)360/128;
 
   public Species(TableRow speciesRow, float bigCircleDia, int idx, int total){
@@ -31,6 +32,11 @@ public class Species {
       yCor = (float)(475+Math.sin(Math.toRadians(index*interval))*bigCircleDia/2);
       xNum = (float)(725+Math.cos(Math.toRadians(index*interval))*(bigCircleDia/2+10));
       yNum = (float)(475+Math.sin(Math.toRadians(index*interval))*(bigCircleDia/2+10));
+      if (type.equals("Basal")) c = color(102,194,165);
+      // If type is Freeliving, set the color to Spring Green1.
+      else if (type.equals("Freeliving")) c = color(252,141,98);
+      // If type is Basal, set the color to Orange Red.
+      else if (type.equals("Parasite")) c = color(141,160,203);
       drawShape();
       System.out.println(System.getProperty("user.dir"));
       img = loadImage("./pics/" + name + ".jpg");
@@ -54,12 +60,7 @@ public class Species {
   private void drawShape(){
     // ELLIPSE x, y, width, height
     shape = createShape(ELLIPSE, xCor,yCor ,diameter ,diameter);
-    // If type is Basal, set the color to royal blue.
-    if (type.equals("Basal")) shape.setFill(color(102,194,165));
-    // If type is Freeliving, set the color to Spring Green1.
-    else if (type.equals("Freeliving")) shape.setFill(color(252,141,98));
-    // If type is Basal, set the color to Orange Red.
-    else if (type.equals("Parasite")) shape.setFill(color(141,160,203));
+    shape.setFill(c);
     shape.setStroke(false);
   }
   
@@ -81,6 +82,10 @@ public class Species {
   
   public String getType(){
     return type;
+  }
+  
+  public color getColor(){
+    return c;
   }
   
   public ArrayList<Float> getRelations(){

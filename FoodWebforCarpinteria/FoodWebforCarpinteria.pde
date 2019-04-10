@@ -13,7 +13,7 @@ PShape bigCircle;
 PImage img;
 String description;
 boolean predPray = true, paraHost = true, predHost = true, paraPara = true;
-int buttonX = 50, buttonY = 120;
+int buttonX = 50, buttonY = 800;
 int canvasX = 1920;
 int canvasY = 1080;
 int foodChainX = 1500;
@@ -21,6 +21,8 @@ int foodChainY = 525;
 int foodChainRadius = 20;
 int foodChainLine = 200;
 int foodChainIndex = 40;
+// color for basal, freeliving and parasite
+color[] speciesColor = {color(102,194,165), color(252,141,98),color(141,160,203)};
 double connectance;
 List< List<float[]> > preyCor = new ArrayList(); 
 List< List<float[]> > predatorCor = new ArrayList(); 
@@ -91,7 +93,7 @@ void draw()
    stroke(0);
    textSize(15);
    fill(0);
-   text("Subwebs (click to select)", 45, 110);
+   text("Subwebs (click to select)", 45, buttonY - 10);
    
    if (predPray) fill(152,78,163);
    else noFill();
@@ -121,30 +123,30 @@ void draw()
    fill(0);
    text("Reset the food web", 650+25, 935);
 
-   int tplX = 40, tplY = 350;
-   fill(255,255,51); rect(tplX, tplY, 10, 10);
-   fill(255,127,0); rect(tplX, tplY+20, 10, 10);
-   fill(228,26,28); rect(tplX, tplY+40, 10, 10);
-   fill(152,78,163); rect(tplX, tplY+60, 10, 10);
-   fill(247,129,191); rect(tplX, tplY+85, 10, 10);
-   fill(102,166,30); rect(tplX, tplY+105, 10, 10);
-   fill(78,179,211); rect(tplX, tplY+150, 10, 10);
-   fill(153,153,153); rect(tplX, tplY+170, 10, 10);
+   //int tplX = 40, tplY = 350;
+   //fill(255,255,51); rect(tplX, tplY, 10, 10);
+   //fill(255,127,0); rect(tplX, tplY+20, 10, 10);
+   //fill(228,26,28); rect(tplX, tplY+40, 10, 10);
+   //fill(152,78,163); rect(tplX, tplY+60, 10, 10);
+   //fill(247,129,191); rect(tplX, tplY+85, 10, 10);
+   //fill(102,166,30); rect(tplX, tplY+105, 10, 10);
+   //fill(78,179,211); rect(tplX, tplY+150, 10, 10);
+   //fill(153,153,153); rect(tplX, tplY+170, 10, 10);
    
-   textSize(13);
-   fill(0);
-   text("Types of links", tplX, 340);
-   textSize(12);
-   text("first intermediate host", tplX+20, tplY+10);
-   text("first and second intermediate host", tplX+20, tplY+30);
-   text("second intermediate host", tplX+20, tplY+50);
-   text("final intermediate host", tplX+20, tplY+70);
-   text("predator-prey and egg predator", tplX+20, tplY+90);
-   text("predation on free-living cercarial", tplX+20, tplY+110);
-   text("stage of a trematode and", tplX+20, tplY+125);
-   text("micropredation (mosquito)", tplX+20, tplY+140);
-   text("predation on parasite in a host", tplX+20, tplY+160); 
-   text("parasite-parasite", tplX+20, tplY+180);
+   //textSize(13);
+   //fill(0);
+   //text("Types of links", tplX, 340);
+   //textSize(12);
+   //text("first intermediate host", tplX+20, tplY+10);
+   //text("first and second intermediate host", tplX+20, tplY+30);
+   //text("second intermediate host", tplX+20, tplY+50);
+   //text("final intermediate host", tplX+20, tplY+70);
+   //text("predator-prey and egg predator", tplX+20, tplY+90);
+   //text("predation on free-living cercarial", tplX+20, tplY+110);
+   //text("stage of a trematode and", tplX+20, tplY+125);
+   //text("micropredation (mosquito)", tplX+20, tplY+140);
+   //text("predation on parasite in a host", tplX+20, tplY+160); 
+   //text("parasite-parasite", tplX+20, tplY+180);
    
    int tpsX = 55, tpsY = 250;
    fill(102,194,165); circle(tpsX, tpsY, 15);
@@ -199,57 +201,57 @@ public void drawFoodWeb(int i){
    text(allSpecies.get(t).getName(), 0,0);
    popMatrix();
    shape(allSpecies.get(i).getShape(),0,0);
+   color c = allSpecies.get(i).getColor();
    for(int j = 0; j < speciesNum; j++){
      // draw relations between i and j if j is still activated
      if(allSpecies.get(j).getStatus()){
        float ijRelation = allSpecies.get(i).getRelations().get(j);
        // draw links if two speceis have relations
-       
        if(ijRelation!=0) {
          if (predPray){
            if(ijRelation==1) {
              strokeWeight(0.5);
-             stroke(255,255,51);
+             stroke(c);
              line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
            }
            if(ijRelation==1.2||ijRelation==1.25) {
              strokeWeight(0.5);
-             stroke(255,127,0);
+             stroke(c);
              line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
            }
            if(ijRelation==2||ijRelation==2.5) {
              strokeWeight(0.5);
-             stroke(228,26,28);
+             stroke(c);
              line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
            }
            if(ijRelation==3) {
              strokeWeight(0.5);
-             stroke(152,78,163);
+             stroke(c);
              line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());          }
          }
          if(paraHost){
            if(ijRelation==4||ijRelation==4.1||ijRelation==4.11||ijRelation==4.2) {
              strokeWeight(0.45);
-             stroke(247,129,191);
+             stroke(c);
              line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
            }
          }
          if (predHost){
            if(ijRelation==5||ijRelation==6) {
              strokeWeight(0.5);
-             stroke(102,166,30);
+             stroke(c);
              line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
            } 
            if(ijRelation==7||ijRelation==8) {
              strokeWeight(0.25);
-             stroke(78,179,211);
+             stroke(c);
              line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
            } 
          }
          if (paraPara){
            if(ijRelation==9) {
              strokeWeight(0.5);
-             stroke(153,153,153);
+             stroke(c);
              line(allSpecies.get(i).getXCor(), allSpecies.get(i).getYCor(), allSpecies.get(j).getXCor(), allSpecies.get(j).getYCor());
            } 
          }
